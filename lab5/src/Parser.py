@@ -20,8 +20,10 @@ class Parser:
                 values = all[1].split('|')
                 self.productions[key] = []
                 for val in values:
-                    #TODO validate
-                    self.productions[key].append(val.strip())
+                    mini_list = []
+                    for v in val.strip().split(' '):
+                        mini_list.append(v)
+                    self.productions[key].append(mini_list)
 
     def validate_start_symbol(self):
         if self.start_symbol not in self.non_terminals:
@@ -32,11 +34,9 @@ class Parser:
             if key not in self.non_terminals:
                 raise Exception('Invalid production: '+ str(key) + ' not found in not-terminals list.')
             for elem in vals:
-                for char in elem:
-                    if 97 <= ord(char) <= 122 and char not in self.terminals:
-                        raise Exception('Invalid production: ' + char + ' not found in terminals list.')
-                    elif 65 <= ord(char) <= 90 and char not in self.non_terminals:
-                        raise Exception('Invalid production: ' + char + ' not found in non_terminals list.')
+                for el in elem:
+                    if el not in self.non_terminals and el not in self.terminals:
+                        raise Exception('Invalid production: ' + el + ' not found in terminals or non-terminals')
 
     def get_productions_of_non_terminal(self, non_terminal):
         if non_terminal in self.non_terminals:
