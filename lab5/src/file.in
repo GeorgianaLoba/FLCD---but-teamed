@@ -1,5 +1,4 @@
-S Aa
-a b
 S
-S - a Aa
-A - a Aa | b Aa | a | b
+a b c
+S
+S - a S b S | a S | c
