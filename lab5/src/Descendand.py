@@ -36,16 +36,17 @@ class Descendad:
         nonTernminal = self.configuration.work_stack.pop()
         number = nonTernminal.split(' ')[1]
         productions = self.parser.get_productions_of_non_terminal(nonTernminal.split(' ')[0])
-        if len(productions) >= int(number) - 1:
+        for i in range(len(productions[int(number) - 1])):
+            self.configuration.input_stack.pop(0)
+        if len(productions) > int(number):
             self.configuration.state["q"] = True
             self.configuration.state["b"] = False
             self.configuration.work_stack.append(nonTernminal.split(' ')[0] + " " + str(int(number) + 1))
-            for i in range(len(productions[int(number)]) - 1, -1, -1):
+
+            for i in range(len(productions[int(number)])-1, -1, -1):
                 self.configuration.input_stack.insert(0, productions[int(number)][i])
-        elif len(productions) < int(number) - 1:
-            non_terminalNr = self.configuration.work_stack.pop()
-            non_terminal = non_terminalNr.split(' ')[0]
-            self.configuration.input_stack.insert(0, non_terminal)
+        elif len(productions) <= int(number):
+            self.configuration.input_stack.insert(0, nonTernminal.split(' ')[0])
         else:
             self.configuration.state["e"] = True
             self.configuration.state["b"] = False
@@ -54,16 +55,18 @@ class Descendad:
 
         running = True
         while (running):
-            if len(self.configuration.input_stack) == 0 and self.configuration.state[
-                "q"] == True and self.configuration.index == len(sequence):
+            if len(self.configuration.input_stack) == 0 and self.configuration.state["q"] == True and self.configuration.index-1 == len(sequence):
                 self.succes()
-            if self.configuration.input_stack[0] in self.parser.non_terminals and self.configuration.state["q"] == True:
+            elif self.configuration.input_stack[0] in self.parser.non_terminals and self.configuration.state["q"] == True:
                 self.expand()
             elif self.configuration.state["q"] == True and self.configuration.input_stack[0] in self.parser.terminals:
-                if sequence[self.configuration.index] == self.configuration.input_stack[0]:
-                    self.advance()
-                else:
+                if self.configuration.index>len(sequence):
                     self.momentary_insucces()
+                else:
+                    if sequence[self.configuration.index-1] == self.configuration.input_stack[0]:
+                        self.advance()
+                    else:
+                        self.momentary_insucces()
             elif self.configuration.state["b"] == True:
                 if self.configuration.work_stack[-1] in self.parser.terminals:
                     self.back()
