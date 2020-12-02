@@ -76,6 +76,7 @@ class Descendad:
             if self.configuration.state["f"] == True:
                 running = False
                 print("Succes" + str(self.configuration.input_stack) + " " + str(self.configuration.work_stack))
+                return self.configuration.work_stack
             if self.configuration.state["e"] == True:
                 running = False
                 print("Error" + str(self.configuration.input_stack) + " " + str(self.configuration.work_stack))
