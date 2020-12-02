@@ -16,41 +16,41 @@ def display():
 
 def main():
     parser = Parser()
+    parser.read_file('grammar.in')
+    try:
+        parser.validate_start_symbol()
+        parser.validate_productions()
+    except Exception as ex:
+        print(ex)
+        return
+    while True:
+        display()
+        try:
+            inp = int(input())
+        except Exception:
+            print('Insert valid number please')
+        if inp == 0:
+            break
+        if inp == 1:
+            print(parser)
+        if inp == 2:
+            print(parser.non_terminals)
+        if inp == 3:
+            print(parser.terminals)
+        if inp == 4:
+            print(parser.start_symbol)
+        if inp == 5:
+            for key in parser.productions.keys():
+                 print(str(key) + "->" + str(parser.productions[key]))
+        if inp == 6:
+            nn = input()
+            try:
+                print(parser.get_productions_of_non_terminal(nn))
+            except Exception as ex:
+                print(ex)
 
-    # try:
-    #     parser.validate_start_symbol()
-    #     parser.validate_productions()
-    # except Exception as ex:
-    #     print(ex)
-    #     return
-    # while True:
-    #     display()
-    #     try:
-    #         inp = int(input())
-    #     except Exception:
-    #         print('Insert valid number please')
-    #     if inp == 0:
-    #         break
-    #     if inp == 1:
-    #         print(parser)
-    #     if inp == 2:
-    #         print(parser.non_terminals)
-    #     if inp == 3:
-    #         print(parser.terminals)
-    #     if inp == 4:
-    #         print(parser.start_symbol)
-    #     if inp == 5:
-    #         for key in parser.productions.keys():
-    #              print(str(key) + "->" + str(parser.productions[key]))
-    #     if inp == 6:
-    #         nn = input()
-    #         try:
-    #             print(parser.get_productions_of_non_terminal(nn))
-    #         except Exception as ex:
-    #             print(ex)
-
-    descendad= Descendad(parser)
-    descendad.run("aacbc")
+    # descendad= Descendad(parser)
+    # descendad.run("aacbc")
 
 
 

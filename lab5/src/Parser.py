@@ -13,6 +13,7 @@ class Parser:
             # first 3 lines are fixed sized
             self.non_terminals = self.split_line(f.readline())
             self.terminals = self.split_line(f.readline())
+            self.terminals.append(' ')
             self.start_symbol = self.split_line(f.readline())[0]
             for line in f:
                 all = line.split('-') # [ [], [] ]

@@ -1,2 +1,22 @@
 Program stmtlist Declaration type type1 arrayDecl stmt simplstmt structstmt assignstmt expression term factor iostmt ifstmt forstmt condition relation logical
-q w e r t y u i o p a s d f g h j k l z x c v b n m Q W E R T Y U I O P A S D F G H J K L Z X C V B N M 0 1 2 3 4 5 6 7 8 9 _
++ - , * / is equals  equalsOrSmaller smaller equalsOrGreater greater \ { } ( ) [ ] ~~ Decides else PasCuPas YesNo String rigid peEcran peTastatura and or IntArray Identifier const
+Program
+Program - stmtlist \
+Declaration - type Identifier
+type1 - rigid | YesNo | String
+arrayDecl - IntArray [ const ]
+type - type1 | arrayDecl
+stmtlist - stmt | stmt stmtlist
+stmt - simplstmt | structstmt
+simplstmt - assignstmt \ | iostmt \ | Declaration \
+assignstmt - equals ( Identifier , expression )
+expression - expression +  term | expression - term | term
+term - term * factor | term / factor | factor
+factor - ( expression ) | Identifier | const
+iostmt - peEcran Identifier | peEcran const | peTastatura Identifier | peTastatura const
+structstmt - stmtlist | ifstmt | forstmt
+ifstmt - Decides condition { stmtlist } else { stmtlist }
+forstmt - PasCuPas ( assignstmt \ condition \ assignstmt ) { stmtlist }
+condition - relation ( expression , expression ) | expression is expression | expression logical expression
+relation - equalsOrSmaller | smaller | equalsOrGreater | greater
+logical - and | or
