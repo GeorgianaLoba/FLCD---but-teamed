@@ -1,22 +1,20 @@
-Program stmtlist Declaration type type1 arrayDecl stmt simplstmt structstmt assignstmt expression term factor iostmt ifstmt forstmt condition relation logical
-+ - , * / is equals  equalsOrSmaller smaller equalsOrGreater greater \ { } ( ) [ ] ~~ Decides else PasCuPas YesNo String rigid peEcran peTastatura and or IntArray Identifier const
-Program
-Program - stmtlist
-Declaration - type Identifier
-type1 - rigid | YesNo | String
-arrayDecl - IntArray [ const ]
-type - type1 | arrayDecl
-stmtlist - stmt | stmt stmtlist
-stmt - simplstmt | structstmt
-simplstmt - assignstmt \ | iostmt \ | Declaration \
-assignstmt - equals ( Identifier , expression )
-expression - expression +  term | expression - term | term
-term - term * factor | term / factor | factor
-factor - ( expression ) | Identifier | const
-iostmt - peEcran Identifier | peEcran const | peTastatura Identifier | peTastatura const
-structstmt - stmtlist | ifstmt | forstmt
-ifstmt - Decides condition { stmtlist } else { stmtlist }
-forstmt - PasCuPas ( assignstmt \ condition \ assignstmt ) { stmtlist }
-condition - relation ( expression , expression ) | expression is expression | expression logical expression
-relation - equalsOrSmaller | smaller | equalsOrGreater | greater
-logical - and | or
+program type statement_list statement simple_declaration assigned_declaration assignment function_arguments if_statement while_statement condition expression operand output_statement input_statement array relation
++ - * / % = == != is and or true false < > <= >= { } ; ( ) , let func returns or and print while return if else then integer boolean array scan id cst
+program
+program - let func id function_arguments returns type { statement_list } ;
+type - integer
+statement_list - statement | statement statement_list
+statement - simple_declaration | assigned_declaration | assignment | if_statement | while_statement | output_statement | input_statement
+simple_declaration - let type id ;
+assigned_declaration - let id = expression ;
+assignment - id = expression ;
+function_arguments - ( type id ) | ( type id , function_arguments )
+if_statement - if condition then { statement_list } | if condition then { statement_list } else { statement_list }
+while_statement - while condition then { statement_list }
+condition - ( expression relation expression )
+expression - cst | id | id operand cst | cst operand id | id operand id | ( expression ) operand ( expression ) | id operand ( expression ) | ( expression ) operand id
+operand - + | * | / | %
+output_statement - print id ; | print cst ;
+input_statement - scan type id ;
+array - id [ integer ] | id [ id ]
+relation - = | < | > | <= | >= | is | !=

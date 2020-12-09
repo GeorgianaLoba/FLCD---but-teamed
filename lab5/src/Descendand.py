@@ -56,10 +56,6 @@ class Descendad:
     def run(self, sequence):
         running = True
         while (running):
-            print('------------------------------------------------------------')
-            print(self.configuration.work_stack)
-            print(self.configuration.input_stack)
-            print('--------------------------------------------------------------')
             if len(self.configuration.input_stack) == 0 and self.configuration.state["q"] == True and self.configuration.index-1 == len(sequence):
                 self.succes()
             elif self.configuration.input_stack[0] in self.parser.non_terminals and self.configuration.state["q"] == True:

@@ -21,7 +21,7 @@ def readPif(Filename):
 
         # first 3 lines are fixed sized
         for line in f:
-            all = line.split('=')  # [ [], [] ]
+            all = line.split('on')  # [ [], [] ]
             key = all[0].strip()
             sequence.append(key)
     return sequence
@@ -66,10 +66,10 @@ def main():
     print(seq)
 
     work_stack = descendad.run(seq)
-    #
-    # if work_stack is not None:
-    #     parserOutput = ParserOutput(descendad)
-    #     parserOutput.start(work_stack)
+    print(work_stack)
+    if work_stack is not None:
+        parserOutput = ParserOutput(descendad)
+        parserOutput.start(work_stack)
 
 
 

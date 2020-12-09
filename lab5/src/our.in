@@ -1,0 +1,12 @@
+let func check_max(integer a) returns integer {
+    print 2;
+    print a;
+    let integer d;
+    scan integer d;
+    d=8;
+    if (d > 3) then { print a; } else { print d; }
+    while ( d < 30) then {
+        print d;
+        d=d+10;
+    }
+};
