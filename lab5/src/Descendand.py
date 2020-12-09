@@ -5,7 +5,7 @@ from src.ConfigurationClass import ConfigurationClass
 class Descendad:
     def __init__(self, parser):
         self.parser = parser
-        self.parser.read_file("file.in")
+        self.parser.read_file("grammar.in")
         self.configuration = ConfigurationClass(self.parser.start_symbol)
 
     def expand(self):
@@ -38,7 +38,10 @@ class Descendad:
         productions = self.parser.get_productions_of_non_terminal(nonTernminal.split(' ')[0])
         for i in range(len(productions[int(number) - 1])):
             self.configuration.input_stack.pop(0)
-        if len(productions) > int(number):
+        if self.configuration.index == int(number) and len(self.configuration.work_stack)==0:
+            self.configuration.state["e"] = True
+            self.configuration.state["b"] = False
+        elif len(productions) > int(number):
             self.configuration.state["q"] = True
             self.configuration.state["b"] = False
             self.configuration.work_stack.append(nonTernminal.split(' ')[0] + " " + str(int(number) + 1))
@@ -47,14 +50,16 @@ class Descendad:
                 self.configuration.input_stack.insert(0, productions[int(number)][i])
         elif len(productions) <= int(number):
             self.configuration.input_stack.insert(0, nonTernminal.split(' ')[0])
-        else:
-            self.configuration.state["e"] = True
-            self.configuration.state["b"] = False
+
+
 
     def run(self, sequence):
-
         running = True
         while (running):
+            print('------------------------------------------------------------')
+            print(self.configuration.work_stack)
+            print(self.configuration.input_stack)
+            print('--------------------------------------------------------------')
             if len(self.configuration.input_stack) == 0 and self.configuration.state["q"] == True and self.configuration.index-1 == len(sequence):
                 self.succes()
             elif self.configuration.input_stack[0] in self.parser.non_terminals and self.configuration.state["q"] == True:
@@ -79,4 +84,4 @@ class Descendad:
                 return self.configuration.work_stack
             if self.configuration.state["e"] == True:
                 running = False
-                print("Error" + str(self.configuration.input_stack) + " " + str(self.configuration.work_stack))
+                print("Error. Sequence not accepted")

@@ -1,7 +1,7 @@
 Program stmtlist Declaration type type1 arrayDecl stmt simplstmt structstmt assignstmt expression term factor iostmt ifstmt forstmt condition relation logical
 + - , * / is equals  equalsOrSmaller smaller equalsOrGreater greater \ { } ( ) [ ] ~~ Decides else PasCuPas YesNo String rigid peEcran peTastatura and or IntArray Identifier const
 Program
-Program - stmtlist \
+Program - stmtlist
 Declaration - type Identifier
 type1 - rigid | YesNo | String
 arrayDecl - IntArray [ const ]

@@ -15,6 +15,17 @@ def display():
     print('Press 0 for exit')
 
 
+def readPif(Filename):
+    sequence=[]
+    with open(Filename, 'r') as f:
+
+        # first 3 lines are fixed sized
+        for line in f:
+            all = line.split('=')  # [ [], [] ]
+            key = all[0].strip()
+            sequence.append(key)
+    return sequence
+
 def main():
     parser = Parser()
     # parser.read_file('grammar.in')
@@ -51,9 +62,15 @@ def main():
     #             print(ex)
 
     descendad= Descendad(parser)
-    work_stack = descendad.run("aacbc")
-    parserOutput = ParserOutput(descendad)
-    parserOutput.start(work_stack)
+    seq = readPif('PIF.out')
+    print(seq)
+
+    work_stack = descendad.run(seq)
+    #
+    # if work_stack is not None:
+    #     parserOutput = ParserOutput(descendad)
+    #     parserOutput.start(work_stack)
+
 
 
 
