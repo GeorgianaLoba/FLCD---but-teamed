@@ -38,9 +38,10 @@ class Descendad:
         productions = self.parser.get_productions_of_non_terminal(nonTernminal.split(' ')[0])
         for i in range(len(productions[int(number) - 1])):
             self.configuration.input_stack.pop(0)
-        if self.configuration.index == int(number) and len(self.configuration.work_stack)==0:
+        if self.configuration.index == int(number) and len(self.configuration.work_stack)==0 and len(productions)<=int(number):
             self.configuration.state["e"] = True
             self.configuration.state["b"] = False
+
         elif len(productions) > int(number):
             self.configuration.state["q"] = True
             self.configuration.state["b"] = False
@@ -48,6 +49,9 @@ class Descendad:
 
             for i in range(len(productions[int(number)])-1, -1, -1):
                 self.configuration.input_stack.insert(0, productions[int(number)][i])
+        elif len(self.configuration.work_stack)==0 and len(self.configuration.input_stack)==0:
+            self.configuration.state["e"] = True
+            self.configuration.state["b"] = False
         elif len(productions) <= int(number):
             self.configuration.input_stack.insert(0, nonTernminal.split(' ')[0])
 
@@ -69,7 +73,9 @@ class Descendad:
                     else:
                         self.momentary_insucces()
             elif self.configuration.state["b"] == True:
-                if self.configuration.work_stack[-1] in self.parser.terminals:
+                if len(self.configuration.work_stack)==0:
+                    self.back()
+                elif self.configuration.work_stack[-1] in self.parser.terminals :
                     self.back()
                 else:
                     self.another_try()
